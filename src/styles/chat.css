@@ -1,0 +1,901 @@
+/* 컨디션노트 AI 채팅 · 큐레이션 (본문은 중앙, 스크롤은 페이지 전체) */
+
+.curated-app.cn-chat-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  max-width: 100%;
+  background: var(--cn-bg);
+  background-image: none;
+  box-sizing: border-box;
+}
+
+.cn-chat-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: calc(64px + env(safe-area-inset-top, 0px));
+  padding: max(0px, env(safe-area-inset-top, 0px)) max(1.25rem, env(safe-area-inset-right, 0px)) 0
+    max(1.25rem, env(safe-area-inset-left, 0px));
+  border-bottom: 1px solid var(--cn-line);
+  background: var(--cn-surface);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.cn-chat-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cn-chat-header__logo {
+  width: 36px;
+  height: 36px;
+  color: var(--cn-brand);
+}
+
+.cn-chat-header__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.cn-chat-header__title {
+  font-family: var(--cn-font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--cn-text-strong);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.cn-chat-header__sub {
+  font-family: var(--cn-font-body);
+  font-size: 0.72rem;
+  color: var(--cn-muted);
+  margin: 0;
+}
+
+.cn-chat-header__back {
+  font-family: var(--cn-font-body);
+  font-size: 0.85rem;
+  color: var(--cn-brand);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cn-chat-header__back:hover {
+  text-decoration: underline;
+}
+
+/* 메시지 영역: 가운데 컬럼, 높이는 콘텐츠만큼 → 스크롤은 window */
+.cn-chat-stream {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2rem;
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+  flex: 1 1 auto;
+}
+
+.cn-chat-footer {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem 1rem 1.5rem;
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+  padding-bottom: max(1.5rem, calc(1rem + env(safe-area-inset-bottom, 0px)));
+  box-sizing: border-box;
+  background: linear-gradient(180deg, transparent 0%, var(--cn-bg) 35%);
+}
+
+/* 말풍선 */
+.cn-msg {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+  animation: cnFadeUpMsg 0.45s var(--cn-ease-out) both;
+}
+
+.cn-msg--ai {
+  align-items: flex-start;
+}
+
+.cn-msg--user {
+  flex-direction: row-reverse;
+}
+
+.cn-msg__avatar {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--cn-brand-fog);
+  color: var(--cn-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cn-msg__bubble {
+  max-width: min(780px, 100%);
+  padding: 1rem 1.15rem;
+  line-height: var(--cn-leading-body);
+  font-family: var(--cn-font-body);
+  font-size: 0.95rem;
+  color: var(--cn-text);
+}
+
+.cn-msg__bubble--ai {
+  background: var(--cn-chat-bubble-ai);
+  border-radius: 4px 28px 28px 28px;
+  box-shadow: var(--cn-shadow-card);
+  border: 1px solid var(--cn-line);
+}
+
+.cn-msg__bubble--user {
+  background: var(--cn-chat-bubble-user);
+  border-radius: 28px 4px 28px 28px;
+  border: 1px solid var(--cn-line);
+}
+
+.cn-msg__text {
+  margin: 0;
+}
+
+.cn-msg__text + .cn-mood-step,
+.cn-msg__text + .cn-mini-choice,
+.cn-msg__text + .cn-meditative-loader,
+.cn-msg__text + .cn-journey-result {
+  margin-top: 0.75rem;
+}
+
+/* 무드 그리드 */
+.cn-mood-step__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.cn-mood-step__dots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.cn-mood-step__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cn-line-strong);
+  opacity: 0.45;
+}
+
+.cn-mood-step__dot--on {
+  background: var(--cn-brand);
+  opacity: 1;
+}
+
+.cn-mood-step__q {
+  font-family: var(--cn-font-display);
+  font-size: 1.05rem;
+  color: var(--cn-text-strong);
+  margin: 0;
+}
+
+.cn-mood-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 420px) {
+  .cn-mood-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.cn-mood-img {
+  aspect-ratio: 3 / 4;
+  border-radius: var(--cn-radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  border: 2.5px solid transparent;
+  transition: border-color 0.25s var(--cn-ease), transform 0.25s var(--cn-ease);
+  padding: 0;
+  background: none;
+}
+
+.cn-mood-img:hover {
+  transform: scale(1.02);
+}
+
+.cn-mood-img--selected {
+  border-color: var(--cn-brand);
+}
+
+.cn-mood-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cn-mood-img__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 45%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+}
+
+.cn-mood-img__label {
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0.4rem;
+  font-family: var(--cn-font-display);
+  font-size: 0.82rem;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.cn-mood-img__check {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--cn-brand);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  animation: cnFadeUpMsg 0.3s var(--cn-ease-out) both;
+}
+
+/* 미니 선택 */
+.cn-mini-choice__q {
+  font-family: var(--cn-font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--cn-text-strong);
+  margin: 0 0 0.5rem;
+}
+
+.cn-mini-choice__q:not(:first-child) {
+  margin-top: 1rem;
+}
+
+.cn-mini-choice__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cn-choice-btn {
+  min-height: 48px;
+  padding: 0.65rem 1.1rem;
+  border-radius: var(--cn-radius-sm);
+  border: 1.5px solid var(--cn-line-strong);
+  background: var(--cn-surface-soft);
+  cursor: pointer;
+  transition: background-color 0.25s var(--cn-ease), border-color 0.25s var(--cn-ease),
+    color 0.25s var(--cn-ease);
+  font-family: var(--cn-font-body);
+  font-size: 0.92rem;
+  color: var(--cn-text);
+}
+
+.cn-choice-btn--selected {
+  background: var(--cn-brand-fog);
+  border-color: var(--cn-brand);
+  color: var(--cn-brand-strong);
+}
+
+.cn-mini-choice__confirm {
+  margin-top: 1.25rem;
+  width: 100%;
+  min-height: 48px;
+  border: none;
+  border-radius: var(--cn-radius-md);
+  background: var(--cn-brand);
+  color: #fff;
+  font-family: var(--cn-font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.cn-mini-choice__confirm:disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.cn-mini-choice__confirm:not(:disabled):hover {
+  opacity: 0.92;
+}
+
+/* 명상 로더 */
+.cn-meditative-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.cn-meditative-loader__ripples {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.25rem;
+}
+
+.cn-ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cn-brand);
+  opacity: 0.35;
+  animation: cnRipple 2.2s ease-out infinite;
+}
+
+.cn-ripple:nth-child(2) {
+  animation-delay: 0.75s;
+}
+
+.cn-ripple:nth-child(3) {
+  animation-delay: 1.45s;
+}
+
+@keyframes cnRipple {
+  0% {
+    transform: scale(0.75);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.cn-meditative-loader__text {
+  font-family: var(--cn-font-display);
+  font-size: 1.05rem;
+  color: var(--cn-muted);
+  letter-spacing: 0.02em;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* 여정 결과 */
+.cn-journey-result__title {
+  font-family: var(--cn-font-display);
+  font-size: 1.35rem;
+  color: var(--cn-text-strong);
+  margin: 0 0 1rem;
+  line-height: 1.3;
+}
+
+.cn-journey-main {
+  border-radius: var(--cn-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--cn-line);
+  background: var(--cn-surface-strong);
+  margin-bottom: 1.25rem;
+}
+
+.cn-journey-main__img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.cn-journey-main__body {
+  padding: 1rem 1.1rem 1.15rem;
+}
+
+.cn-journey-main__loc {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--cn-muted);
+  margin: 0 0 0.35rem;
+}
+
+.cn-journey-main__name {
+  font-family: var(--cn-font-display);
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem;
+  color: var(--cn-text-strong);
+}
+
+.cn-journey-main__name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cn-journey-main__name a:hover {
+  text-decoration: underline;
+}
+
+.cn-journey-main__desc {
+  font-size: 0.86rem;
+  color: var(--cn-muted);
+  margin: 0 0 0.65rem;
+  line-height: 1.65;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cn-journey-main__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.cn-journey-tag {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: var(--cn-brand-fog);
+  color: var(--cn-brand-strong);
+}
+
+/* 타임라인 */
+.cn-timeline {
+  display: flex;
+  gap: 0;
+  margin: 0.5rem 0 1.25rem;
+  border-top: 1px solid var(--cn-line);
+  padding-top: 1rem;
+}
+
+.cn-timeline__day {
+  flex: 1;
+  padding: 0 0.65rem;
+  border-left: 1px solid var(--cn-line);
+  min-width: 0;
+}
+
+.cn-timeline__day:first-child {
+  border-left: none;
+  padding-left: 0;
+}
+
+.cn-timeline__label {
+  font-size: 0.68rem;
+  font-variant: small-caps;
+  letter-spacing: 0.12em;
+  color: var(--cn-warm);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.cn-timeline__item {
+  font-size: 0.8rem;
+  color: var(--cn-muted);
+  margin-bottom: 0.45rem;
+  line-height: 1.5;
+}
+
+.cn-timeline__slot {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--cn-muted-strong);
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+@media (max-width: 640px) {
+  .cn-timeline {
+    flex-direction: column;
+  }
+
+  .cn-timeline__day {
+    border-left: none;
+    padding-left: 0;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--cn-line);
+  }
+
+  .cn-timeline__day:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+/* 주변 경험 */
+.cn-nearby__title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--cn-muted-strong);
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.04em;
+}
+
+.cn-nearby-scroll {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  margin-bottom: 1rem;
+  scrollbar-width: none;
+}
+
+.cn-nearby-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.cn-nearby-card {
+  flex: 0 0 140px;
+  width: 140px;
+  border-radius: var(--cn-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--cn-line);
+  background: var(--cn-surface-strong);
+}
+
+.cn-nearby-card__img {
+  width: 100%;
+  height: 88px;
+  object-fit: cover;
+  display: block;
+}
+
+.cn-nearby-card__body {
+  padding: 0.45rem 0.5rem 0.55rem;
+}
+
+.cn-nearby-card__cat {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cn-terracotta);
+  margin: 0 0 0.15rem;
+}
+
+.cn-nearby-card__name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin: 0 0 0.2rem;
+  color: var(--cn-text-strong);
+  line-height: 1.25;
+}
+
+.cn-nearby-card__blurb {
+  font-size: 0.68rem;
+  color: var(--cn-muted);
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cn-journey-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cn-journey-cta__primary,
+.cn-journey-cta__secondary {
+  min-height: 48px;
+  padding: 0 1.15rem;
+  border-radius: var(--cn-radius-md);
+  font-family: var(--cn-font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 140px;
+  box-sizing: border-box;
+}
+
+.cn-journey-cta__primary {
+  background: var(--cn-brand);
+  color: #fff;
+}
+
+.cn-journey-cta__secondary {
+  background: var(--cn-surface-soft);
+  color: var(--cn-brand);
+  border: 1.5px solid var(--cn-brand);
+}
+
+/* 마인드맵 (채팅) */
+.cn-chat-mindmap {
+  margin-top: 0.5rem;
+}
+
+.cn-chat-mindmap__empty {
+  font-size: 0.85rem;
+  color: var(--cn-muted);
+  padding: 0.75rem;
+  background: var(--cn-surface-soft);
+  border-radius: var(--cn-radius-sm);
+}
+
+.cn-chat-mindmap__tree {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.cn-chat-mindmap__center {
+  align-self: flex-start;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--cn-radius-sm);
+  background: var(--cn-brand);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.cn-chat-mindmap__branches {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.cn-chat-mindmap__branch {
+  border-left: 2px solid var(--cn-warm-soft);
+  padding-left: 0.65rem;
+}
+
+.cn-chat-mindmap__branch-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--cn-warm);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cn-chat-mindmap__leaves {
+  margin: 0.25rem 0 0;
+  padding-left: 1rem;
+  font-size: 0.82rem;
+  color: var(--cn-text);
+}
+
+.cn-chat-mindmap__leaves li {
+  margin-bottom: 0.2rem;
+}
+
+/* 빠른 시작 */
+.cn-chat-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+}
+
+.cn-chat-quick__btn {
+  min-height: 44px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--cn-line-strong);
+  background: var(--cn-surface-strong);
+  font-family: var(--cn-font-body);
+  font-size: 0.82rem;
+  color: var(--cn-muted-strong);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.cn-chat-quick__btn:hover {
+  border-color: var(--cn-brand);
+  color: var(--cn-brand-strong);
+  background: var(--cn-brand-fog);
+}
+
+@keyframes cnFadeUpMsg {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Claude-style 입력 */
+.cn-chat-input-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.cn-chat-input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 0.85rem 0.65rem;
+  border-radius: var(--cn-radius-lg);
+  border: 1px solid var(--cn-line-strong);
+  background: var(--cn-surface-strong);
+  box-shadow: var(--cn-shadow-soft);
+  transition: box-shadow 0.2s var(--cn-ease);
+}
+
+.cn-chat-input-box:focus-within {
+  box-shadow: var(--cn-shadow-card);
+}
+
+.cn-chat-input-files {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.cn-chat-input-files::-webkit-scrollbar {
+  height: 4px;
+}
+
+.cn-chat-file-card {
+  position: relative;
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--cn-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--cn-line);
+}
+
+.cn-chat-file-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cn-chat-file-card__remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.cn-chat-input-ta {
+  width: 100%;
+  min-height: 2.5rem;
+  max-height: 240px;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  font-family: var(--cn-font-body);
+  font-size: 1rem;
+  color: var(--cn-text);
+  line-height: 1.55;
+}
+
+.cn-chat-input-ta::placeholder {
+  color: var(--cn-muted);
+}
+
+.cn-chat-input-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.cn-chat-input-icon-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: var(--cn-radius-sm);
+  background: transparent;
+  color: var(--cn-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.cn-chat-input-icon-btn:hover {
+  background: var(--cn-surface-soft);
+  color: var(--cn-text);
+}
+
+.cn-chat-input-send {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: var(--cn-radius-sm);
+  background: var(--cn-brand);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s;
+}
+
+.cn-chat-input-send:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.cn-chat-input-send:not(:disabled):hover {
+  opacity: 0.9;
+}
+
+.cn-chat-input-disclaimer {
+  text-align: center;
+  font-size: 0.68rem;
+  color: var(--cn-muted);
+  margin: 0.65rem 0 0;
+}
+
+.cn-chat-input-drag {
+  position: absolute;
+  inset: 0;
+  border: 2px dashed var(--cn-brand);
+  border-radius: var(--cn-radius-lg);
+  background: rgba(53, 89, 76, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.cn-chat-input-drag p {
+  margin: 0.35rem 0 0;
+  font-size: 0.88rem;
+  color: var(--cn-brand-strong);
+  font-weight: 600;
+}

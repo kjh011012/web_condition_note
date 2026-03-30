@@ -1,0 +1,125 @@
+/* ============================================================
+   컨디션노트 Design Tokens
+   ============================================================ */
+
+.curated-app {
+  /* ── 배경 / 서피스 ── */
+  --cn-bg: #f5f1ec;
+  --cn-bg-deep: #eae4dc;
+  --cn-surface: rgba(255, 252, 248, 0.88);
+  --cn-surface-strong: #fffaf4;
+  --cn-surface-soft: #f1e7db;
+  --cn-surface-elevated: rgba(255, 255, 255, 0.72);
+
+  /* ── 선 / 경계 ── */
+  --cn-line: rgba(87, 74, 58, 0.1);
+  --cn-line-strong: rgba(65, 56, 45, 0.16);
+
+  /* ── 텍스트 ── */
+  --cn-text: #2e2a24;
+  --cn-text-strong: #1f1a15;
+  --cn-muted: #6e665d;
+  --cn-muted-strong: #544b43;
+
+  /* ── 브랜드 (초록계열) ── */
+  --cn-brand: #35594c;
+  --cn-brand-strong: #26453a;
+  --cn-brand-soft: #dbe8df;
+  --cn-brand-fog: rgba(53, 89, 76, 0.1);
+
+  /* ── 웜 (갈색계열) ── */
+  --cn-warm: #a17045;
+  --cn-warm-soft: #f4e2d0;
+
+  /* ── 상태 색상 ── */
+  --cn-success: #5d7f5f;
+  --cn-success-soft: #e5f0e2;
+  --cn-pending: #8d7359;
+  --cn-pending-soft: #f4ebdf;
+  --cn-danger: #9d5e5d;
+  --cn-danger-soft: #f8e4e0;
+
+  /* ── 반경 ── */
+  --cn-radius-xl: 36px;
+  --cn-radius-lg: 28px;
+  --cn-radius-md: 22px;
+  --cn-radius-sm: 16px;
+
+  /* ── 그림자 ── */
+  --cn-shadow: 0 28px 90px rgba(62, 43, 22, 0.08);
+  --cn-shadow-soft: 0 18px 48px rgba(62, 43, 22, 0.05);
+  --cn-shadow-card: 0 4px 24px rgba(26, 35, 24, 0.06);
+
+  /* ── 미스트 / 클레이 (보조 면) ── */
+  --cn-mist: #e8ebe5;
+  --cn-mist-soft: #f0f3ee;
+  --cn-clay: #8b7a6a;
+  --cn-clay-soft: #e5ddd4;
+
+  /* ── 카드·포커스 ── */
+  --cn-card-border: rgba(26, 35, 24, 0.09);
+  --cn-radius-2xs: 4px;
+  --cn-focus-ring: 0 0 0 2px var(--cn-surface-strong), 0 0 0 4px var(--cn-sage-deep);
+
+  /* ── 섹션 세로 리듬 ── */
+  --cn-section-y-sm: clamp(3rem, 6vw, 4.5rem);
+  --cn-section-y-md: clamp(4.5rem, 9vw, 6.5rem);
+  --cn-section-y-lg: clamp(5.5rem, 11vw, 8rem);
+
+  /* ── 여백 시스템 ── */
+  --cn-space-xs: 0.5rem;
+  --cn-space-sm: 1rem;
+  --cn-space-md: 2rem;
+  --cn-space-lg: 4rem;
+  --cn-space-xl: 6rem;
+  --cn-space-2xl: 8rem;
+
+  /* ── 모션 ── */
+  --cn-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --cn-ease-out: cubic-bezier(0, 0, 0.25, 1);
+  --cn-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --cn-duration-fast: 200ms;
+  --cn-duration-normal: 400ms;
+  --cn-duration-slow: 600ms;
+  --cn-duration-gentle: 800ms;
+
+  /* ── 홈 컬러 토큰 ── */
+  --cn-cream:       #F6F1E9;
+  --cn-cream-deep:  #EDE4D6;
+  --cn-dark:        #1E2B1F;
+  --cn-ink:         #1A2318;
+  --cn-ink-muted:   #5C6B56;
+  --cn-ink-faint:   #9CAA94;
+  --cn-sage:        #7A9E6E;
+  --cn-sage-pale:   #C4D9B8;
+  --cn-sage-deep:   #4A7240;
+  --cn-earth:       #9B7B54;
+  --cn-white-v2:    #FDFAF5;
+  /* v1 하위 호환 */
+  --cn-forest:      #2C3E2D;
+  --cn-forest-light:#4A6741;
+  --cn-stone:       #A09888;
+  --cn-white-warm:  #FDFAF5;
+
+  /* ── 레이아웃 토큰 ── */
+  --cn-shell:       min(1100px, calc(100% - 4rem));
+  --cn-shell-wide:  min(1260px, calc(100% - 3rem));
+  --cn-text-width:  44rem;
+
+  /* ── 타이포그래피 (단일 소스) ── */
+  --cn-font-display: "Cormorant Garamond", "Noto Serif KR", serif;
+  --cn-font-serif: "Noto Serif KR", "Iowan Old Style", serif;
+  --cn-font-body: "Pretendard Variable", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+  --cn-leading-body: 1.8;
+  --cn-leading-tight: 1.25;
+
+  /* curated.css 하위 호환 별칭 */
+  --cn-display: var(--cn-font-display);
+  --cn-body: var(--cn-font-body);
+
+  /* 채팅 / 스펙 액센트 */
+  --cn-terracotta: #c4956a;
+  --cn-terracotta-soft: #f4e2d0;
+  --cn-chat-bubble-ai: rgba(255, 252, 248, 0.95);
+  --cn-chat-bubble-user: var(--cn-brand-soft);
+}

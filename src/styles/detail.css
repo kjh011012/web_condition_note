@@ -1,0 +1,957 @@
+/* ============================================================
+   Detail v3 — 2컬럼 치유 웰니스 디테일 페이지
+   ============================================================ */
+
+/* ── 페이지 래퍼 ── */
+.cn3-det {
+  display: block;
+  background: var(--cn-cream);
+  min-height: 100vh;
+  padding-bottom: 6rem;
+}
+
+/* ── 히어로 — 70svh (기존 100vh에서 대폭 축소) ── */
+.cn3-det__hero {
+  position: relative;
+  width: 100vw;
+  height: 62svh;
+  min-height: 360px;
+  max-height: 620px;
+  margin-left: calc(-50vw + 50%);
+  margin-top: calc(-64px - 1.5rem);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 6vh;
+}
+
+.cn3-det__hero-media {
+  position: absolute;
+  inset: 0;
+}
+
+.cn3-det__hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: cn3DetKenburns 28s ease-in-out infinite alternate;
+}
+
+@keyframes cn3DetKenburns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.05); }
+}
+
+.cn3-det__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8, 18, 8, 0.88) 0%,
+    rgba(8, 18, 8, 0.40) 40%,
+    rgba(8, 18, 8, 0.06) 72%,
+    rgba(8, 18, 8, 0) 100%
+  );
+}
+
+.cn3-det__hero-body {
+  position: relative;
+  z-index: 2;
+  padding-left: max(5vw, 2.5rem);
+  padding-right: max(5vw, 2.5rem);
+  max-width: 58rem;
+  color: #fff;
+}
+
+.cn3-det__hero-region {
+  font-family: var(--cn-font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.46);
+  margin: 0 0 1rem;
+}
+
+.cn3-det__hero-title {
+  font-family: var(--cn-font-serif);
+  font-size: clamp(1.8rem, 4vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin: 0 0 1rem;
+  word-break: keep-all;
+}
+
+.cn3-det__hero-tagline {
+  font-family: var(--cn-font-display);
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.58);
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── 메트릭 스트립 ── */
+.cn3-det__metrics-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid rgba(26, 35, 24, 0.08);
+  flex-wrap: wrap;
+}
+
+.cn3-det__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.cn3-det__tag {
+  font-family: var(--cn-font-body);
+  font-size: 0.68rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 2px;
+}
+
+.cn3-det__tag--type {
+  background: rgba(53, 89, 76, 0.12);
+  color: var(--cn-sage-deep);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cn3-det__tag--region,
+.cn3-det__tag--duration {
+  background: rgba(26, 35, 24, 0.06);
+  color: var(--cn-ink-muted);
+}
+
+.cn3-det__key-nums {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.cn3-det__key-num {
+  text-align: right;
+}
+
+.cn3-det__key-num strong {
+  display: block;
+  font-family: var(--cn-font-body);
+  font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+  font-weight: 600;
+  color: var(--cn-ink);
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+  word-break: keep-all;
+}
+
+.cn3-det__key-num span {
+  font-family: var(--cn-font-body);
+  font-size: 0.68rem;
+  color: var(--cn-ink-faint);
+  letter-spacing: 0.04em;
+}
+
+/* ── 일정 / 맞춤 탭 ── */
+.cn3-det__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+}
+
+.cn3-det__tab {
+  font-family: var(--cn-font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(26, 35, 24, 0.14);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--cn-ink-muted);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.cn3-det__tab:hover {
+  border-color: rgba(53, 89, 76, 0.35);
+  color: var(--cn-ink);
+}
+
+.cn3-det__tab--on {
+  background: rgba(53, 89, 76, 0.12);
+  border-color: rgba(53, 89, 76, 0.28);
+  color: var(--cn-sage-deep);
+}
+
+.cn3-det__tab-panels {
+  min-height: 2rem;
+}
+
+.cn3-det__tab-panel {
+  animation: cn3DetTabIn 0.28s ease;
+}
+
+@keyframes cn3DetTabIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cn3-det__tab-list {
+  margin: 0;
+  padding: 0 0 0 1.1rem;
+  font-family: var(--cn-font-body);
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--cn-ink-muted);
+}
+
+.cn3-det__tab-list--caution {
+  list-style-type: "–  ";
+}
+
+.cn3-det__tab-footnote {
+  margin: 1rem 0 0;
+  font-family: var(--cn-font-body);
+  font-size: 0.76rem;
+  line-height: 1.6;
+  color: var(--cn-ink-faint);
+}
+
+/* ── 2컬럼 메인 레이아웃 ── */
+.cn3-det__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 400px);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  padding-top: 2.3rem;
+  align-items: start;
+}
+
+/* ── 왼쪽: 콘텐츠 영역 ── */
+.cn3-det__main {
+  display: flex;
+  flex-direction: column;
+}
+
+.cn3-det__section {
+  padding: 2.35rem 0;
+  border-bottom: 1px solid rgba(26, 35, 24, 0.07);
+}
+
+.cn3-det__section:first-child {
+  padding-top: 0;
+}
+
+.cn3-det__section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.cn3-det__section .cn3-det__eyebrow {
+  display: block;
+  font-family: var(--cn-font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cn-sage-deep);
+  margin-bottom: 0.8rem;
+}
+
+.cn3-det__section-title {
+  font-family: var(--cn-font-serif);
+  font-size: clamp(1.2rem, 2vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.3;
+  color: var(--cn-ink);
+  margin: 0 0 1.5rem;
+}
+
+.cn3-det__summary-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.cn3-det__summary-item {
+  padding: 0.9rem 1rem;
+  border-radius: 3px;
+  border: 1px solid rgba(26, 35, 24, 0.08);
+  background: rgba(236, 228, 216, 0.35);
+  font-family: var(--cn-font-body);
+  font-size: 0.86rem;
+  line-height: 1.72;
+  color: var(--cn-ink-muted);
+}
+
+/* 스토리 텍스트 */
+.cn3-det__story-body p {
+  font-family: var(--cn-font-body);
+  font-size: clamp(0.88rem, 1vw, 0.95rem);
+  line-height: 1.95;
+  color: var(--cn-ink-muted);
+  margin: 0 0 1.2rem;
+}
+
+.cn3-det__story-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── 컴팩트 갤러리 ── */
+.cn3-det__gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin: 2rem 0;
+}
+
+.cn3-det__gallery-img {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--cn-cream-deep);
+}
+
+.cn3-det__gallery-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+}
+
+.cn3-det__gallery-img:hover img {
+  transform: scale(1.07);
+}
+
+/* ── 일정 / 플로우 ── */
+.cn3-det__flow {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.cn3-det__flow-step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.25rem;
+  padding: 1.2rem 1.4rem;
+  background: rgba(236, 228, 216, 0.46);
+  border-radius: 3px;
+  border: 1px solid rgba(26, 35, 24, 0.05);
+}
+
+.cn3-det__flow-idx {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--cn-sage-deep);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--cn-font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.cn3-det__flow-content {}
+
+.cn3-det__flow-title {
+  font-family: var(--cn-font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cn-ink);
+  margin: 0 0 0.38rem;
+}
+
+.cn3-det__flow-body {
+  font-family: var(--cn-font-body);
+  font-size: 0.84rem;
+  line-height: 1.78;
+  color: var(--cn-ink-muted);
+  margin: 0;
+}
+
+.cn3-det__journey-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.cn3-det__journey-card {
+  border: 1px solid rgba(26, 35, 24, 0.08);
+  border-radius: 3px;
+  background: rgba(253, 250, 245, 0.9);
+  padding: 0.95rem 0.95rem 1rem;
+  display: grid;
+  gap: 0.48rem;
+}
+
+.cn3-det__journey-no {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(53, 89, 76, 0.14);
+  color: var(--cn-sage-deep);
+  font-family: var(--cn-font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.cn3-det__journey-card h3 {
+  margin: 0;
+  font-family: var(--cn-font-serif);
+  font-size: 0.98rem;
+  line-height: 1.35;
+  color: var(--cn-ink);
+}
+
+.cn3-det__journey-card p {
+  margin: 0;
+  font-family: var(--cn-font-body);
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--cn-ink-muted);
+}
+
+.cn3-det__journey-loop {
+  margin: 0.9rem 0 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px dashed rgba(26, 35, 24, 0.16);
+  border-radius: 3px;
+  font-family: var(--cn-font-body);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--cn-ink-faint);
+}
+
+/* ── 포함 / 미포함 체크리스트 ── */
+.cn3-det__checks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.cn3-det__check-group h3 {
+  font-family: var(--cn-font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cn-ink-faint);
+  margin: 0 0 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(26, 35, 24, 0.07);
+}
+
+.cn3-det__check-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.cn3-det__check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-family: var(--cn-font-body);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--cn-ink-muted);
+}
+
+.cn3-det__check-icon {
+  font-size: 0.7rem;
+  margin-top: 0.18rem;
+  flex-shrink: 0;
+  font-style: normal;
+}
+
+.cn3-det__check-icon--yes { color: var(--cn-sage-deep); }
+.cn3-det__check-icon--no  { color: var(--cn-ink-faint); opacity: 0.6; }
+
+/* ── 후기 ── */
+.cn3-det__reviews-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.cn3-det__review {
+  background: rgba(236, 228, 216, 0.55);
+  border-radius: 3px;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid rgba(26, 35, 24, 0.05);
+}
+
+.cn3-det__review-open-quote {
+  font-family: var(--cn-font-display);
+  font-size: 2.5rem;
+  color: var(--cn-sage-pale);
+  line-height: 0.8;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.cn3-det__review-body {
+  font-family: var(--cn-font-body);
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: var(--cn-ink-muted);
+  margin: 0 0 1rem;
+}
+
+.cn3-det__review-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(26, 35, 24, 0.06);
+}
+
+.cn3-det__review-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cn-sage);
+  flex-shrink: 0;
+}
+
+.cn3-det__review-author {
+  font-family: var(--cn-font-body);
+  font-size: 0.75rem;
+  color: var(--cn-ink-faint);
+}
+
+/* ── 오른쪽: 예약 패널 ── */
+.cn3-det__sidebar {
+  position: sticky;
+  top: 84px;
+}
+
+.cn3-booking {
+  background: var(--cn-white-warm, #fdfaf5);
+  border: 1px solid rgba(26, 35, 24, 0.09);
+  border-radius: 4px;
+  padding: 2rem;
+  box-shadow: 0 4px 44px rgba(26, 35, 24, 0.08);
+}
+
+.cn3-booking__price-label {
+  display: block;
+  font-family: var(--cn-font-body);
+  font-size: 0.7rem;
+  color: var(--cn-ink-faint);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.cn3-booking__price-amount {
+  font-family: var(--cn-font-display);
+  font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+  font-weight: 600;
+  color: var(--cn-ink);
+  line-height: 1;
+  display: block;
+}
+
+.cn3-booking__price-unit {
+  font-family: var(--cn-font-body);
+  font-size: 0.72rem;
+  color: var(--cn-ink-faint);
+  display: block;
+  margin-top: 0.22rem;
+}
+
+.cn3-booking__divider {
+  height: 1px;
+  background: rgba(26, 35, 24, 0.08);
+  margin: 1.6rem 0;
+}
+
+/* 예약 필드 */
+.cn3-booking__field {
+  display: grid;
+  gap: 0.45rem;
+  margin-bottom: 1.1rem;
+}
+
+.cn3-booking__field label {
+  font-family: var(--cn-font-body);
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--cn-ink-muted);
+  letter-spacing: 0.04em;
+}
+
+.cn3-booking__select {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  font-family: var(--cn-font-body);
+  font-size: 0.85rem;
+  color: var(--cn-ink);
+  background: var(--cn-cream);
+  border: 1px solid rgba(26, 35, 24, 0.15);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.cn3-booking__select:focus {
+  border-color: var(--cn-sage-deep);
+}
+
+/* 스테퍼 */
+.cn3-booking__stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid rgba(26, 35, 24, 0.15);
+  border-radius: 2px;
+  background: var(--cn-cream);
+  overflow: hidden;
+}
+
+.cn3-booking__stepper-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--cn-ink-muted);
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.65rem 1rem;
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cn3-booking__stepper-btn:hover:not(:disabled) {
+  background: var(--cn-cream-deep);
+  color: var(--cn-ink);
+}
+
+.cn3-booking__stepper-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.cn3-booking__stepper-count {
+  font-family: var(--cn-font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--cn-ink);
+  flex: 1;
+  text-align: center;
+  padding: 0.65rem 0;
+  border-left: 1px solid rgba(26, 35, 24, 0.1);
+  border-right: 1px solid rgba(26, 35, 24, 0.1);
+}
+
+/* 소계 */
+.cn3-booking__subtotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 0;
+  border-top: 1px solid rgba(26, 35, 24, 0.08);
+  margin: 0.5rem 0 1.5rem;
+}
+
+.cn3-booking__subtotal-label {
+  font-family: var(--cn-font-body);
+  font-size: 0.82rem;
+  color: var(--cn-ink-muted);
+}
+
+.cn3-booking__subtotal-amount {
+  font-family: var(--cn-font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--cn-ink);
+}
+
+/* CTA 버튼들 */
+.cn3-booking__reserve {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.95rem 1.2rem;
+  background: var(--cn-dark);
+  color: #fff;
+  font-family: var(--cn-font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.22s, transform 0.22s;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+.cn3-booking__reserve:hover {
+  background: var(--cn-sage-deep);
+  transform: translateY(-1px);
+}
+
+.cn3-booking__inquiry {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 0.65rem;
+  padding: 0.8rem 1.2rem;
+  background: transparent;
+  color: var(--cn-ink-muted);
+  font-family: var(--cn-font-body);
+  font-size: 0.82rem;
+  border: 1px solid rgba(26, 35, 24, 0.18);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.cn3-booking__inquiry:hover {
+  border-color: rgba(26, 35, 24, 0.35);
+  color: var(--cn-ink);
+}
+
+/* 신뢰 배지 */
+.cn3-booking__trust {
+  margin-top: 1.4rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.cn3-booking__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--cn-font-body);
+  font-size: 0.74rem;
+  color: var(--cn-ink-faint);
+  line-height: 1.5;
+}
+
+.cn3-booking__trust-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--cn-sage);
+  flex-shrink: 0;
+}
+
+/* ── 반응형 ── */
+@media (max-width: 960px) {
+  .cn3-det__layout {
+    grid-template-columns: 1fr;
+    padding-top: 2.5rem;
+  }
+
+  .cn3-det__sidebar {
+    position: static;
+  }
+
+  .cn3-det__hero {
+    height: 50svh;
+    max-height: 480px;
+  }
+
+  .cn3-det__key-nums {
+    gap: 1.2rem;
+  }
+
+  .cn3-det__checks-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .cn3-det__journey-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .cn3-det__hero {
+    margin-top: calc(-56px - 1.25rem);
+    height: 47svh;
+    min-height: 300px;
+  }
+
+  .cn3-det__metrics-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .cn3-det__key-nums {
+    gap: 1rem;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .cn3-det__key-num {
+    text-align: left;
+  }
+
+  .cn3-booking {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cn3-det__gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cn3-det__gallery-img:last-child {
+    display: none;
+  }
+}
+
+/* ── 모바일 하단 고정 예약 바 ── */
+.det-booking {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  /* 모바일에서는 사이드바 숨기고 하단 바로 대체 */
+  .cn3-det__sidebar {
+    display: none;
+  }
+
+  .det-booking {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 80;
+    background: rgba(246, 241, 233, 0.97);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(26, 35, 24, 0.09);
+    padding: 0.9rem 0;
+  }
+
+  .det-booking__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .det-booking__name {
+    font-family: var(--cn-font-serif);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--cn-ink);
+    margin-bottom: 0.15rem;
+  }
+
+  .det-booking__price {
+    font-family: var(--cn-font-body);
+    font-size: 0.78rem;
+    color: var(--cn-ink-faint);
+  }
+
+  .det-booking__actions {
+    display: flex;
+    gap: 0.65rem;
+  }
+
+  .det-booking__inquiry {
+    padding: 0.6rem 1.3rem;
+    font-family: var(--cn-font-body);
+    font-size: 0.8rem;
+    color: var(--cn-ink-muted);
+    background: transparent;
+    border: 1px solid rgba(26, 35, 24, 0.16);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .det-booking__inquiry:hover {
+    border-color: rgba(26, 35, 24, 0.35);
+  }
+
+  /* 예약 버튼: 각진 다크 */
+  .det-booking__reserve {
+    padding: 0.6rem 1.6rem;
+    font-family: var(--cn-font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #fff;
+    background: var(--cn-dark);
+    border: none;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+
+  .det-booking__reserve:hover {
+    background: var(--cn-sage-deep);
+  }
+
+  /* 하단 바 높이만큼 페이지 패딩 확보 */
+  .cn3-det {
+    padding-bottom: 5rem;
+  }
+}
+
+.cn3-det__journey-from-explore {
+  margin: 0 auto 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(26, 35, 24, 0.07);
+  max-width: min(1120px, calc(100% - 3rem));
+}
+.cn3-det__journey-from-explore-title {
+  margin: 0.5rem 0;
+  font-family: var(--cn-font-serif);
+  font-size: 1.15rem;
+}
+.cn3-det__journey-from-explore-sum {
+  margin: 0 0 0.65rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--cn-ink-muted);
+}
+.cn3-det__journey-from-explore-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--cn-ink-muted);
+}

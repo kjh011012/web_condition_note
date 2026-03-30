@@ -1,0 +1,143 @@
+/* 공통 UI — curated-app 토큰 사용, 전역 .page-home 등과 병행 */
+
+.cn-trust-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cn-trust-chip-row li {
+  margin: 0;
+}
+
+.cn-trust-chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--cn-font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 0.38rem 0.72rem;
+  border-radius: 999px;
+}
+
+.page-home .cn-trust-chip--on-cream,
+.cn-trust-chip--on-cream {
+  color: var(--cn-ink-muted);
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(26, 35, 24, 0.1);
+}
+
+.cn-inclusion-list {
+  font-family: var(--cn-font-body);
+}
+
+.cn-inclusion-list__title {
+  font-family: var(--cn-font-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cn-ink);
+  margin: 0 0 0.65rem;
+}
+
+.cn-inclusion-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cn-inclusion-list li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: var(--cn-ink-muted);
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--cn-card-border);
+}
+
+.cn-inclusion-list li:last-child {
+  border-bottom: none;
+}
+
+.cn-inclusion-list__icon {
+  flex-shrink: 0;
+  width: 1.1rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.cn-inclusion-list--yes .cn-inclusion-list__icon {
+  color: var(--cn-sage-deep);
+}
+
+.cn-inclusion-list--no .cn-inclusion-list__icon {
+  color: var(--cn-danger);
+}
+
+.cn-testimonial {
+  background: var(--cn-surface-strong);
+  border: 1px solid var(--cn-card-border);
+  border-radius: var(--cn-radius-2xs);
+  padding: 1.15rem 1.25rem;
+  box-shadow: var(--cn-shadow-card);
+}
+
+.cn-testimonial__quote {
+  font-family: var(--cn-font-body);
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--cn-ink-muted);
+  margin: 0 0 0.75rem;
+}
+.cn-testimonial__quote p {
+  margin: 0;
+}
+
+.cn-testimonial__tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cn-sage-deep);
+  margin-bottom: 0.35rem;
+}
+
+.cn-testimonial__author {
+  font-size: 0.78rem;
+  color: var(--cn-ink-faint);
+}
+
+.cn-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 9999;
+  padding: 0.65rem 1rem;
+  background: var(--cn-ink);
+  color: var(--cn-cream);
+  font-family: var(--cn-font-body);
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-radius: var(--cn-radius-2xs);
+}
+
+.cn-skip-link:focus {
+  left: 0.75rem;
+  top: 0.75rem;
+  outline: none;
+  box-shadow: var(--cn-focus-ring);
+}
+
+.curated-app :where(a, button, input, select, textarea):focus-visible {
+  outline: none;
+  box-shadow: var(--cn-focus-ring);
+}

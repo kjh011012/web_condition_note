@@ -1,0 +1,157 @@
+/* ============================================================
+   Animations & Motion System
+   ============================================================ */
+
+/* ── Reveal (스크롤 등장) ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--cn-duration-gentle) var(--cn-ease-out),
+    transform var(--cn-duration-gentle) var(--cn-ease-out);
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 이미지 blur-to-clear ── */
+.adaptive-img {
+  filter: blur(16px);
+  transform: scale(1.04);
+  transition:
+    filter 700ms ease-out,
+    transform 700ms ease-out;
+}
+
+.adaptive-img--loaded {
+  filter: blur(0);
+  transform: scale(1);
+}
+
+/* ── 히어로 이미지 Zoom ── */
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
+}
+
+/* ── 히어로 텍스트 등장 ── */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-hero__brand {
+  animation: heroFadeUp 1s var(--cn-ease-out) 0.3s both;
+}
+
+.home-hero__title {
+  animation: heroFadeUp 1s var(--cn-ease-out) 0.5s both;
+}
+
+.home-hero__lead {
+  animation: heroFadeUp 1s var(--cn-ease-out) 0.7s both;
+}
+
+.home-hero__actions {
+  animation: heroFadeUp 1s var(--cn-ease-out) 0.9s both;
+}
+
+/* ── 카드 hover ── */
+.experience-card {
+  transition:
+    transform var(--cn-duration-normal) var(--cn-ease),
+    box-shadow var(--cn-duration-normal) var(--cn-ease);
+}
+
+.experience-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 64px rgba(62, 43, 22, 0.12);
+}
+
+.editorial-card {
+  transition:
+    transform var(--cn-duration-normal) var(--cn-ease),
+    box-shadow var(--cn-duration-normal) var(--cn-ease);
+}
+
+.editorial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 56px rgba(62, 43, 22, 0.1);
+}
+
+/* ── 버튼 hover ── */
+.button {
+  transition:
+    transform var(--cn-duration-fast) var(--cn-ease),
+    box-shadow var(--cn-duration-fast) var(--cn-ease),
+    background-color var(--cn-duration-fast) var(--cn-ease),
+    opacity var(--cn-duration-fast) var(--cn-ease);
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-2px);
+}
+
+.button--primary:hover {
+  box-shadow: 0 16px 40px rgba(38, 69, 58, 0.28);
+}
+
+.button--hero-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* ── 아코디언 트리거 hover ── */
+.accordion-trigger {
+  transition: background-color var(--cn-duration-fast) var(--cn-ease);
+}
+
+.accordion-trigger:hover {
+  background: rgba(53, 89, 76, 0.04);
+}
+
+/* ── 폼 입력 focus 애니메이션 ── */
+.input,
+.select,
+.textarea {
+  transition:
+    border-color var(--cn-duration-fast) var(--cn-ease),
+    box-shadow var(--cn-duration-fast) var(--cn-ease),
+    background-color var(--cn-duration-fast) var(--cn-ease);
+}
+
+/* ── 페이지 진입 페이드 ── */
+.page-shell,
+.page-home {
+  animation: pageFadeIn 0.5s var(--cn-ease-out) both;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── 상태 칩 등장 ── */
+.status-pill {
+  animation: pillPop 0.3s var(--cn-ease-spring) both;
+}
+
+@keyframes pillPop {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
