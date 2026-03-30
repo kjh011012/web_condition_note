@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { farms, villages } from "../data/siteData";
 
-const STAY_CATALOG_HERO_VIDEO = "/videos/nature-forest.webm";
+const STAY_CATALOG_HERO_VIDEO = "/videos/hero-nature.webm";
 
 function enrichItem(item, index) {
   const certMap = ["강원 인증", "치유농업 인증", "지역 추천"];
