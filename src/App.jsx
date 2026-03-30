@@ -10,6 +10,7 @@ import BookingCompletePage from "./pages/BookingCompletePage";
 import CatalogPage from "./pages/CatalogPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ExperienceDetailPage from "./pages/ExperienceDetailPage";
+import FarmDetailPage from "./pages/FarmDetailPage";
 import FaqPage from "./pages/FaqPage";
 import HomePage from "./pages/HomePage";
 import InquiriesPage from "./pages/InquiriesPage";
@@ -29,6 +30,7 @@ function App() {
           element={<ExperienceDetailPage collectionType="villages" />}
           path="/villages/:slug"
         />
+        <Route element={<FarmDetailPage />} path="/farms/:slug" />
         <Route
           element={<CheckoutPage />}
           path="/checkout/:collectionType/:slug"

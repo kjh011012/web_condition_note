@@ -955,3 +955,81 @@
   line-height: 1.55;
   color: var(--cn-ink-muted);
 }
+
+/* ── 관련 체험 그리드 (FarmDetailPage) ─────────────────── */
+.cn3-det__related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.cn3-det__related-card {
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(253, 250, 245, 0.95);
+  border: 1px solid rgba(26, 35, 24, 0.08);
+  box-shadow: 0 4px 16px rgba(26, 35, 24, 0.06);
+  text-decoration: none;
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+}
+
+.cn3-det__related-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(26, 35, 24, 0.1);
+}
+
+.cn3-det__related-img {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.cn3-det__related-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.cn3-det__related-card:hover .cn3-det__related-img img {
+  transform: scale(1.05);
+}
+
+.cn3-det__related-body {
+  padding: 0.75rem 0.85rem 0.9rem;
+}
+
+.cn3-det__related-region {
+  margin: 0 0 0.2rem;
+  font-family: var(--cn-font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--cn-sage-deep);
+  letter-spacing: 0.04em;
+}
+
+.cn3-det__related-title {
+  margin: 0 0 0.35rem;
+  font-family: var(--cn-font-serif);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--cn-ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cn3-det__related-meta {
+  margin: 0;
+  font-family: var(--cn-font-body);
+  font-size: 0.72rem;
+  color: var(--cn-ink-faint);
+}
+
+@media (max-width: 720px) {
+  .cn3-det__related-grid {
+    grid-template-columns: 1fr;
+  }
+}

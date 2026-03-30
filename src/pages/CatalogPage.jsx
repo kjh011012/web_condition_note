@@ -151,7 +151,7 @@ function CatalogPage() {
                 key={item.slug}
                 item={item}
                 collectionLabel="치유농장"
-                linkTo={null}
+                linkTo={`/farms/${item.slug}`}
               />
             ))}
           </div>
