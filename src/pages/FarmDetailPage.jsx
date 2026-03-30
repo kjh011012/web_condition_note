@@ -167,21 +167,78 @@ function FarmDetailPage() {
             </section>
           )}
 
-          {/* 준비물 안내 */}
-          <section className="cn3-det__section">
-            <span className="cn3-det__eyebrow">참고 사항</span>
-            <h2 className="cn3-det__section-title">준비물 / 유의사항</h2>
-            <div className="cn3-det__tab-panel">
-              <ul className="cn3-det__tab-list cn3-det__tab-list--caution">
-                <li>당일 프로그램은 시작 10분 전 도착을 권장합니다.</li>
-                <li>편안한 복장과 운동화를 준비해 주세요.</li>
-                <li>예약 후 운영처에서 자세한 준비사항을 다시 안내드립니다.</li>
-              </ul>
-              <p className="cn3-det__tab-footnote">
-                위 항목은 일반적인 안내이며, 개별 건강 상태는 의료 전문가와 상담해 주세요.
-              </p>
-            </div>
-          </section>
+          {/* 포함 / 불포함 */}
+          {(item.inclusions?.length > 0 || item.exclusions?.length > 0) && (
+            <section className="cn3-det__section">
+              <span className="cn3-det__eyebrow">포함 / 불포함</span>
+              <h2 className="cn3-det__section-title">포함 / 불포함</h2>
+              <div className="cn3-det__checks-grid">
+                {item.inclusions?.length > 0 && (
+                  <div className="cn3-det__check-group">
+                    <h3>포함 사항</h3>
+                    <ul className="cn3-det__check-list">
+                      {item.inclusions.map((inc) => (
+                        <li className="cn3-det__check-item" key={inc}>
+                          <em className="cn3-det__check-icon cn3-det__check-icon--yes" aria-hidden="true">✓</em>
+                          {inc}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {item.exclusions?.length > 0 && (
+                  <div className="cn3-det__check-group">
+                    <h3>불포함 사항</h3>
+                    <ul className="cn3-det__check-list">
+                      {item.exclusions.map((exc) => (
+                        <li className="cn3-det__check-item" key={exc}>
+                          <em className="cn3-det__check-icon cn3-det__check-icon--no" aria-hidden="true">×</em>
+                          {exc}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+
+          {/* 운영처 정보 / 준비사항 */}
+          {(item.address || item.phone || item.preparations?.length > 0) && (
+            <section className="cn3-det__section">
+              <span className="cn3-det__eyebrow">운영처 정보 / 준비사항</span>
+              <h2 className="cn3-det__section-title">운영처 정보 / 준비사항</h2>
+              <div className="cn3-det__operator-card">
+                {item.address && (
+                  <div className="cn3-det__operator-row">
+                    <span className="cn3-det__operator-icon" aria-hidden="true">📍</span>
+                    <span>{item.address}</span>
+                  </div>
+                )}
+                {item.phone && (
+                  <div className="cn3-det__operator-row">
+                    <span className="cn3-det__operator-icon" aria-hidden="true">📞</span>
+                    <span>{item.phone}</span>
+                  </div>
+                )}
+                {item.parking !== undefined && (
+                  <div className="cn3-det__operator-row">
+                    <span className="cn3-det__operator-icon" aria-hidden="true">🚗</span>
+                    <span>{item.parking ? "주차 가능" : "주차 불가"}</span>
+                  </div>
+                )}
+              </div>
+              {item.preparations?.length > 0 && (
+                <div className="cn3-det__operator-card" style={{ marginTop: "1rem" }}>
+                  <h3 className="cn3-det__operator-sub">준비물</h3>
+                  <ul className="cn3-det__tab-list">
+                    {item.preparations.map((p) => <li key={p}>{p}</li>)}
+                  </ul>
+                  <p className="cn3-det__tab-footnote">당일 프로그램은 시작 10분 전 도착을 권장합니다. 예약 후 운영처에서 세부 준비사항을 다시 안내드립니다.</p>
+                </div>
+              )}
+            </section>
+          )}
 
           {/* 컨디션노트 여정 */}
           <section className="cn3-det__section">

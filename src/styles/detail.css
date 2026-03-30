@@ -710,7 +710,7 @@
   text-align: center;
   padding: 0.95rem 1.2rem;
   background: var(--cn-dark);
-  color: #fff;
+  color: #fff !important;
   font-family: var(--cn-font-body);
   font-size: 0.875rem;
   font-weight: 500;
@@ -912,7 +912,7 @@
     font-family: var(--cn-font-body);
     font-size: 0.8rem;
     font-weight: 500;
-    color: #fff;
+    color: #fff !important;
     background: var(--cn-dark);
     border: none;
     border-radius: 2px;
@@ -1032,4 +1032,156 @@
   .cn3-det__related-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── 운영처 정보 카드 ──────────────────────────────────── */
+.cn3-det__operator-card {
+  background: rgba(253, 250, 245, 0.9);
+  border: 1px solid rgba(26, 35, 24, 0.09);
+  border-radius: 6px;
+  padding: 1.1rem 1.25rem;
+}
+
+.cn3-det__operator-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-family: var(--cn-font-body);
+  font-size: 0.85rem;
+  color: var(--cn-ink-muted);
+  line-height: 1.55;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(26, 35, 24, 0.06);
+}
+
+.cn3-det__operator-row:last-child {
+  border-bottom: none;
+}
+
+.cn3-det__operator-icon {
+  flex-shrink: 0;
+  font-style: normal;
+  font-size: 0.88rem;
+  margin-top: 0.05rem;
+}
+
+.cn3-det__operator-sub {
+  font-family: var(--cn-font-serif);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--cn-ink);
+  margin: 0 0 0.65rem;
+}
+
+.cn3-det__info-type {
+  font-family: var(--cn-font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--cn-ink);
+  margin: 0 0 0.5rem;
+}
+
+.cn3-det__info-summary {
+  font-family: var(--cn-font-body);
+  font-size: 0.85rem;
+  color: var(--cn-ink-muted);
+  line-height: 1.65;
+  margin: 0 0 0.5rem;
+}
+
+/* ── 상세 일정표 타임라인 ─────────────────────────────── */
+.cn3-det__timeline-days {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cn3-det__timeline-day-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.cn3-det__timeline-day-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  background: var(--cn-sage-deep);
+  color: #fff;
+  font-family: var(--cn-font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.cn3-det__timeline-day-label {
+  font-family: var(--cn-font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--cn-ink);
+}
+
+.cn3-det__timeline-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 0.25rem;
+}
+
+.cn3-det__timeline-step {
+  display: grid;
+  grid-template-columns: 3.5rem 1rem 1fr;
+  align-items: flex-start;
+  gap: 0 0.75rem;
+  padding: 0.55rem 0;
+  position: relative;
+}
+
+.cn3-det__timeline-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: calc(3.5rem + 0.75rem + 0.45rem);
+  top: 1.6rem;
+  bottom: -0.1rem;
+  width: 1px;
+  background: rgba(26, 35, 24, 0.12);
+}
+
+.cn3-det__timeline-time {
+  font-family: var(--cn-font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cn-ink-faint);
+  padding-top: 0.15rem;
+  text-align: right;
+}
+
+.cn3-det__timeline-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--cn-sage-deep);
+  margin-top: 0.3rem;
+  flex-shrink: 0;
+}
+
+.cn3-det__timeline-title {
+  font-family: var(--cn-font-serif);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--cn-ink);
+  margin: 0 0 0.2rem;
+}
+
+.cn3-det__timeline-body {
+  font-family: var(--cn-font-body);
+  font-size: 0.8rem;
+  color: var(--cn-ink-muted);
+  line-height: 1.6;
+  margin: 0;
 }

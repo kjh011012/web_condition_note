@@ -1354,7 +1354,7 @@
   padding: 0 1.6rem;
   border-radius: var(--cn-radius-md);
   background: var(--cn-brand);
-  color: #fff;
+  color: #fff !important;
   font-family: var(--cn-font-display);
   font-size: 1rem;
   font-weight: 600;

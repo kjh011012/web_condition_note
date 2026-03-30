@@ -419,8 +419,8 @@ function ExperienceDetailPage({ collectionType }) {
 
           {(item.inclusions?.length > 0 || item.exclusions?.length > 0) ? (
             <section className="cn3-det__section">
-              <span className="cn3-det__eyebrow">상세 안내</span>
-              <h2 className="cn3-det__section-title">무엇이 포함되나요?</h2>
+              <span className="cn3-det__eyebrow">포함 / 불포함</span>
+              <h2 className="cn3-det__section-title">포함 / 불포함</h2>
               <div className="cn3-det__checks-grid">
                 {item.inclusions?.length > 0 ? (
                   <div className="cn3-det__check-group">
@@ -428,9 +428,7 @@ function ExperienceDetailPage({ collectionType }) {
                     <ul className="cn3-det__check-list">
                       {item.inclusions.map((inc) => (
                         <li className="cn3-det__check-item" key={inc}>
-                          <em className="cn3-det__check-icon cn3-det__check-icon--yes" aria-hidden="true">
-                            ✓
-                          </em>
+                          <em className="cn3-det__check-icon cn3-det__check-icon--yes" aria-hidden="true">✓</em>
                           {inc}
                         </li>
                       ))}
@@ -439,19 +437,123 @@ function ExperienceDetailPage({ collectionType }) {
                 ) : null}
                 {item.exclusions?.length > 0 ? (
                   <div className="cn3-det__check-group">
-                    <h3>미포함 사항</h3>
+                    <h3>불포함 사항</h3>
                     <ul className="cn3-det__check-list">
                       {item.exclusions.map((exc) => (
                         <li className="cn3-det__check-item" key={exc}>
-                          <em className="cn3-det__check-icon cn3-det__check-icon--no" aria-hidden="true">
-                            ×
-                          </em>
+                          <em className="cn3-det__check-icon cn3-det__check-icon--no" aria-hidden="true">×</em>
                           {exc}
                         </li>
                       ))}
                     </ul>
                   </div>
                 ) : null}
+              </div>
+            </section>
+          ) : null}
+
+          {(item.accommodation || item.meals) ? (
+            <section className="cn3-det__section">
+              <span className="cn3-det__eyebrow">숙소 / 식사 안내</span>
+              <h2 className="cn3-det__section-title">숙소 / 식사 안내</h2>
+              <div className="cn3-det__checks-grid">
+                {item.accommodation ? (
+                  <div className="cn3-det__check-group">
+                    <h3>숙소</h3>
+                    <p className="cn3-det__info-type">{item.accommodation.type}</p>
+                    <ul className="cn3-det__check-list">
+                      {item.accommodation.amenities.map((a) => (
+                        <li className="cn3-det__check-item" key={a}>
+                          <em className="cn3-det__check-icon cn3-det__check-icon--yes" aria-hidden="true">✓</em>
+                          {a}
+                        </li>
+                      ))}
+                    </ul>
+                    {item.accommodation.note && (
+                      <p className="cn3-det__tab-footnote">{item.accommodation.note}</p>
+                    )}
+                  </div>
+                ) : null}
+                {item.meals ? (
+                  <div className="cn3-det__check-group">
+                    <h3>식사</h3>
+                    <p className="cn3-det__info-summary">{item.meals.summary}</p>
+                    {item.meals.note && (
+                      <p className="cn3-det__tab-footnote">{item.meals.note}</p>
+                    )}
+                  </div>
+                ) : null}
+              </div>
+            </section>
+          ) : null}
+
+          {(item.address || item.phone || item.preparations?.length > 0) ? (
+            <section className="cn3-det__section">
+              <span className="cn3-det__eyebrow">운영처 정보 / 준비사항</span>
+              <h2 className="cn3-det__section-title">운영처 정보 / 준비사항</h2>
+              <div className="cn3-det__operator-card">
+                {item.address && (
+                  <div className="cn3-det__operator-row">
+                    <span className="cn3-det__operator-icon" aria-hidden="true">📍</span>
+                    <span>{item.address}</span>
+                  </div>
+                )}
+                {item.phone && (
+                  <div className="cn3-det__operator-row">
+                    <span className="cn3-det__operator-icon" aria-hidden="true">📞</span>
+                    <span>{item.phone}</span>
+                  </div>
+                )}
+                {item.checkin && (
+                  <div className="cn3-det__operator-row">
+                    <span className="cn3-det__operator-icon" aria-hidden="true">🕐</span>
+                    <span>체크인 {item.checkin} / 체크아웃 {item.checkout}</span>
+                  </div>
+                )}
+                {item.parking !== undefined && (
+                  <div className="cn3-det__operator-row">
+                    <span className="cn3-det__operator-icon" aria-hidden="true">🚗</span>
+                    <span>{item.parking ? "주차 가능" : "주차 불가"}</span>
+                  </div>
+                )}
+              </div>
+              {item.preparations?.length > 0 && (
+                <div className="cn3-det__operator-card" style={{ marginTop: "1rem" }}>
+                  <h3 className="cn3-det__operator-sub">준비물</h3>
+                  <ul className="cn3-det__tab-list">
+                    {item.preparations.map((p) => <li key={p}>{p}</li>)}
+                  </ul>
+                  <p className="cn3-det__tab-footnote">예약 후 운영처에서 세부 일정과 준비사항을 다시 안내드립니다.</p>
+                </div>
+              )}
+            </section>
+          ) : null}
+
+          {item.itinerary?.length > 0 && item.itinerary[0]?.steps ? (
+            <section className="cn3-det__section">
+              <span className="cn3-det__eyebrow">상세 일정</span>
+              <h2 className="cn3-det__section-title">일정표</h2>
+              <div className="cn3-det__timeline-days">
+                {item.itinerary.map((day) => (
+                  <div className="cn3-det__timeline-day" key={day.day}>
+                    <div className="cn3-det__timeline-day-header">
+                      <span className="cn3-det__timeline-day-badge">{day.day}</span>
+                      <span className="cn3-det__timeline-day-label">{day.label}</span>
+                    </div>
+                    <div className="cn3-det__timeline-steps">
+                      {day.steps.map((step) => (
+                        <div className="cn3-det__timeline-step" key={step.time}>
+                          <span className="cn3-det__timeline-time">{step.time}</span>
+                          <div className="cn3-det__timeline-dot" aria-hidden="true" />
+                          <div className="cn3-det__timeline-content">
+                            <p className="cn3-det__timeline-title">{step.title}</p>
+                            <p className="cn3-det__timeline-body">{step.body}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             </section>
           ) : null}
