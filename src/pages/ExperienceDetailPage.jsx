@@ -145,28 +145,34 @@ function ExperienceDetailPage({ collectionType }) {
     }
     const it = item.itinerary ?? [];
     if (!it.length) return [];
-    if (it[0]?.steps?.length) {
+    /** 첫째 날 steps만 보면 안 됨: 빈 배열이면 레거시 분기로 가며 day 객체가 그대로 렌더되어 글이 비어 보임 */
+    const hasScheduledSteps = it.some(
+      (d) => Array.isArray(d?.steps) && d.steps.length > 0,
+    );
+    if (hasScheduledSteps) {
       let n = 0;
       const rows = [];
       for (const d of it) {
         for (const s of d.steps ?? []) {
           n += 1;
           rows.push({
-            key: `${item.slug}-${d.day}-${n}-${s.time}`,
-            title: `${s.time} · ${s.title}`,
-            body: s.body,
+            key: `${item.slug}-${d.day ?? "d"}-${n}-${s.time ?? n}`,
+            title: [s.time, s.title].filter(Boolean).join(" · "),
+            body: s.body ?? "",
             idx: n,
           });
         }
       }
       return rows;
     }
-    return it.map((row, i) => ({
-      key: `${item.slug}-day-${i}-${row.title ?? "row"}`,
-      title: row.title,
-      body: row.body,
-      idx: i + 1,
-    }));
+    return it
+      .filter((row) => row?.title != null || row?.body != null)
+      .map((row, i) => ({
+        key: `${item.slug}-day-${i}-${String(row.title ?? "row").slice(0, 48)}`,
+        title: row.title ?? "",
+        body: row.body ?? "",
+        idx: i + 1,
+      }));
   }, [collectionType, item]);
 
   const [detailTab, setDetailTab] = useState("flow");
@@ -564,7 +570,7 @@ function ExperienceDetailPage({ collectionType }) {
             </section>
           ) : null}
 
-          {item.itinerary?.length > 0 && item.itinerary[0]?.steps ? (
+          {item.itinerary?.some((d) => Array.isArray(d?.steps) && d.steps.length > 0) ? (
             <section className="cn3-det__section">
               <span className="cn3-det__eyebrow">상세 일정</span>
               <h2 className="cn3-det__section-title">일정표</h2>
