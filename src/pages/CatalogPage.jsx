@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { farms, villages } from "../data/siteData";
 
-const STAY_CATALOG_HERO_VIDEO = "/videos/hero-nature.webm";
+const HERO_IMAGE = `${import.meta.env.BASE_URL}images/hero-autumn-chairs.jpg`;
 
 function enrichItem(item, index) {
   const certMap = ["강원 인증", "치유농업 인증", "지역 추천"];
@@ -105,17 +105,12 @@ function CatalogPage() {
             </div>
           </div>
           <div className="cn3-cat__hero-right">
-            <video
+            <img
               aria-hidden
-              autoPlay
+              alt=""
               className="cn3-cat__hero-video"
-              loop
-              muted
-              playsInline
-              poster={allVillageItems[0]?.heroImage}
-            >
-              <source src={STAY_CATALOG_HERO_VIDEO} type="video/webm" />
-            </video>
+              src={HERO_IMAGE}
+            />
             <div aria-hidden className="cn3-cat__hero-video-overlay" />
           </div>
         </div>
