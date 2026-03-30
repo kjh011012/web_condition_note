@@ -1,3 +1,6 @@
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+function img(path) { return `${_base}${path}`; }
+
 export const primaryNav = [
   { label: "회복 스테이", to: "/villages" },
   { label: "회복 리포트", to: "/archive" },
@@ -64,8 +67,8 @@ export const villages = [
     rating: 4.85,
     reviewCount: 48,
     nights: "1박 2일",
-    heroImage: "/images/villages/goradei-village.jpg",
-    galleryImage: "/images/villages/goradei-village.jpg",
+    heroImage: img("/images/villages/goradei-village.jpg"),
+    galleryImage: img("/images/villages/goradei-village.jpg"),
     description:
       "숲 속 건강 호흡법·싱잉볼·족욕 등이 어우러진 힐링 산책형 프로그램. 횡성군 청일면 봉명로 375-1. 문의 010-9435-0053.",
     tags: ["숲 치유", "싱잉볼", "족욕"],
@@ -102,8 +105,8 @@ export const villages = [
     rating: 4.82,
     reviewCount: 41,
     nights: "1박 2일",
-    heroImage: "/images/villages/nodaji-village.jpg",
-    galleryImage: "/images/villages/nodaji-village.jpg",
+    heroImage: img("/images/villages/nodaji-village.jpg"),
+    galleryImage: img("/images/villages/nodaji-village.jpg"),
     description:
       "아로마 브레인 디톡스 테라피·아로마 족욕·황토찜질·더덕 허브 훈제 바비큐. 횡성군 청일면 춘당로 232. 문의 010-4150-1952.",
     tags: ["아로마", "황토찜질", "힐링식"],
@@ -140,8 +143,8 @@ export const villages = [
     rating: 4.88,
     reviewCount: 62,
     nights: "1박 2일",
-    heroImage: "/images/villages/taegisan-village.jpg",
-    galleryImage: "/images/villages/taegisan-village.jpg",
+    heroImage: img("/images/villages/taegisan-village.jpg"),
+    galleryImage: img("/images/villages/taegisan-village.jpg"),
     description:
       "치유 식탁(더덕무침·토마토김치 등), 국자랑(선도기공), 치유 산책. 횡성군 청일면 청일로 779번길 117. 문의 010-6847-8713.",
     tags: ["약선식", "기공", "산책"],
@@ -181,8 +184,8 @@ export const farms = [
     rating: 4.79,
     reviewCount: 55,
     duration: "반나절 체험",
-    heroImage: "/images/farms/noah-forest-gallery.jpg",
-    galleryImage: "/images/farms/noah-forest-gallery.jpg",
+    heroImage: img("/images/farms/noah-forest-gallery.jpg"),
+    galleryImage: img("/images/farms/noah-forest-gallery.jpg"),
     description:
       "숲슐랭 피크닉·샐러드 피크닉 도시락·초록쉼표 치유여행. 횡성군 갑천면 외갑천로 694번길 92-20. 문의 010-9040-5295.",
     tags: ["숲 피크닉", "도시락", "치유여행"],
@@ -209,8 +212,8 @@ export const farms = [
     rating: 4.76,
     reviewCount: 38,
     duration: "2시간 체험",
-    heroImage: "/images/farms/bluewing-farm.jpg",
-    galleryImage: "/images/farms/bluewing-farm.jpg",
+    heroImage: img("/images/farms/bluewing-farm.jpg"),
+    galleryImage: img("/images/farms/bluewing-farm.jpg"),
     description:
       "애완닭·앵무새 등과의 동물 교감 프로그램. 횡성군 공근면 금계로 11-13. 문의 010-9743-0078.",
     tags: ["동물교감", "가족", "농장"],
@@ -237,8 +240,8 @@ export const farms = [
     rating: 4.71,
     reviewCount: 29,
     duration: "3시간 체험",
-    heroImage: "/images/farms/sanchae-village-welchon.jpg",
-    galleryImage: "/images/farms/sanchae-village-welchon.jpg",
+    heroImage: img("/images/farms/sanchae-village-welchon.jpg"),
+    galleryImage: img("/images/farms/sanchae-village-welchon.jpg"),
     description:
       "텃밭 브런치·피크닉과 원격근무 가능한 치유 공간. 횡성군 둔내면 삽교로 386. 문의 010-9219-4922.",
     tags: ["브런치", "피크닉", "워케이션"],
