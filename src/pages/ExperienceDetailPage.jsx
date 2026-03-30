@@ -132,7 +132,42 @@ function ExperienceDetailPage({ collectionType }) {
       .slice(0, 3);
   }, [collection, item]);
 
-  const flowItems = collectionType === "villages" ? item?.itinerary ?? [] : item?.flow ?? [];
+  /** 탭「일정/진행 순서」용: villages는 시간표(steps)를 한 줄씩 펼침, key는 항상 고유 */
+  const flowItems = useMemo(() => {
+    if (!item) return [];
+    if (collectionType === "farms") {
+      return (item.flow ?? []).map((step, i) => ({
+        key: `${item.slug}-flow-${i}`,
+        title: step.title,
+        body: step.body,
+        idx: i + 1,
+      }));
+    }
+    const it = item.itinerary ?? [];
+    if (!it.length) return [];
+    if (it[0]?.steps?.length) {
+      let n = 0;
+      const rows = [];
+      for (const d of it) {
+        for (const s of d.steps ?? []) {
+          n += 1;
+          rows.push({
+            key: `${item.slug}-${d.day}-${n}-${s.time}`,
+            title: `${s.time} · ${s.title}`,
+            body: s.body,
+            idx: n,
+          });
+        }
+      }
+      return rows;
+    }
+    return it.map((row, i) => ({
+      key: `${item.slug}-day-${i}-${row.title ?? "row"}`,
+      title: row.title,
+      body: row.body,
+      idx: i + 1,
+    }));
+  }, [collectionType, item]);
 
   const [detailTab, setDetailTab] = useState("flow");
 
@@ -352,10 +387,10 @@ function ExperienceDetailPage({ collectionType }) {
                   role="tabpanel"
                 >
                   <div className="cn3-det__flow">
-                    {flowItems.map((step, i) => (
-                      <div className="cn3-det__flow-step" key={step.title}>
+                    {flowItems.map((step) => (
+                      <div className="cn3-det__flow-step" key={step.key}>
                         <div className="cn3-det__flow-idx" aria-hidden="true">
-                          {String(i + 1).padStart(2, "0")}
+                          {String(step.idx).padStart(2, "0")}
                         </div>
                         <div className="cn3-det__flow-content">
                           <p className="cn3-det__flow-title">{step.title}</p>
@@ -541,8 +576,8 @@ function ExperienceDetailPage({ collectionType }) {
                       <span className="cn3-det__timeline-day-label">{day.label}</span>
                     </div>
                     <div className="cn3-det__timeline-steps">
-                      {day.steps.map((step) => (
-                        <div className="cn3-det__timeline-step" key={step.time}>
+                      {day.steps.map((step, si) => (
+                        <div className="cn3-det__timeline-step" key={`${day.day}-${si}-${step.time}`}>
                           <span className="cn3-det__timeline-time">{step.time}</span>
                           <div className="cn3-det__timeline-dot" aria-hidden="true" />
                           <div className="cn3-det__timeline-content">
